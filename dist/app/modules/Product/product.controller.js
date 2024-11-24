@@ -17,17 +17,16 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const { product } = req.body;
         const validProduct = product_validation_1.productValidation.safeParse(product);
         if (validProduct.success) {
-            console.log("Valid product data:", validProduct.data);
             const result = yield product_service_1.productServices.createProductDB(validProduct.data);
             res.status(200).json({
-                message: "Product created successfully",
+                message: 'Product created successfully',
                 success: true,
                 data: result,
             });
         }
         else {
             res.status(500).json({
-                message: "Validation failed",
+                message: 'Validation failed',
                 success: false,
                 data: validProduct.error,
             });
@@ -35,9 +34,10 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (error) {
         res.status(500).json({
-            message: "Failed to get all Data",
+            message: 'Failed to get all Data',
             success: false,
-            error,
+            error: error,
+            stack: error instanceof Error && error.stack,
         });
     }
 });
@@ -45,14 +45,14 @@ const getProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const result = yield product_service_1.productServices.getProductDB();
         res.status(200).json({
-            message: "Get all Products  successfully",
+            message: 'Get all Products  successfully',
             success: true,
             data: result,
         });
     }
     catch (error) {
         res.status(500).json({
-            message: "Failed to get all Data",
+            message: 'Failed to get all Data',
             success: false,
             error,
         });
@@ -62,16 +62,15 @@ const getSingleProduct = (req, res) => __awaiter(void 0, void 0, void 0, functio
     try {
         const { productId } = req.params;
         const result = yield product_service_1.productServices.getSingleProductDB(productId);
-        console.log(result);
         res.status(200).json({
-            message: "Get Single product successfully",
+            message: 'Get Single product successfully',
             success: true,
             data: result,
         });
     }
     catch (error) {
         res.status(500).json({
-            message: "Failed to get all Data",
+            message: 'Failed to get all Data',
             success: false,
             error,
         });
@@ -82,14 +81,14 @@ const deleteSingleProduct = (req, res) => __awaiter(void 0, void 0, void 0, func
         const { productId } = req.params;
         const result = yield product_service_1.productServices.deleteSingleProductDB(productId);
         res.status(200).json({
-            message: "Deleted  Single product successfully",
+            message: 'Deleted  Single product successfully',
             success: true,
             data: result,
         });
     }
     catch (error) {
         res.status(500).json({
-            message: "Failed to get all Data",
+            message: 'Failed to get all Data',
             success: false,
             error,
         });
@@ -98,17 +97,17 @@ const deleteSingleProduct = (req, res) => __awaiter(void 0, void 0, void 0, func
 const updateSingleProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { productId } = req.params;
-        const { updateInfo } = req.body.productInfo;
-        const result = yield product_service_1.productServices.updateSingleProductDB(productId, updateInfo);
+        const { productInfo } = req.body;
+        const result = yield product_service_1.productServices.updateSingleProductDB(productId, productInfo);
         res.status(200).json({
-            message: "Deleted  Single product successfully",
+            message: 'update  Single product successfully',
             success: true,
             data: result,
         });
     }
     catch (error) {
         res.status(500).json({
-            message: "Failed to get all Data",
+            message: 'Failed to update product data',
             success: false,
             error,
         });

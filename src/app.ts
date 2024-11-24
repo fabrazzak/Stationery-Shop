@@ -1,26 +1,22 @@
+import express from 'express';
+import cors from 'cors';
+import { productRouter } from './app/modules/Product/product.routes';
+import { OrderRouter } from './app/modules/Order/order.routes';
 
-import express from 'express' 
-import cors from 'cors'
-import { productRouter } from './app/modules/Product/product.routes'
-import { OrderRouter } from './app/modules/Order/order.routes'
+const app = express();
 
-const app = express()
+// parser
 
-// parser 
+app.use(express.json());
+app.use(cors());
 
-app.use(express.json())
-app.use(cors())
+// application routes
 
-// application routes 
-
-
-app.use("/api/products",productRouter)
-app.use("/api/orders",OrderRouter)
+app.use('/api/products', productRouter);
+app.use('/api/orders', OrderRouter);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+  res.send('Hello World!');
+});
 
-
-
-export default app
+export default app;

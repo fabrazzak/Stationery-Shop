@@ -18,14 +18,16 @@ const createOrderDB = (order) => __awaiter(void 0, void 0, void 0, function* () 
 const getOrderRevenueDB = () => __awaiter(void 0, void 0, void 0, function* () {
     // const result= await OrderModel.find();
     const result = yield order_model_1.OrderModel.aggregate([
-        { $group: {
+        {
+            $group: {
                 _id: null,
-                totalRevenue: { $sum: { $multiply: ["$quantity", "$totalPrice"] } }
-            } }
+                totalRevenue: { $sum: { $multiply: ['$quantity', '$totalPrice'] } },
+            },
+        },
     ]);
     return result;
 });
 exports.OrderServices = {
     createOrderDB,
-    getOrderRevenueDB
+    getOrderRevenueDB,
 };

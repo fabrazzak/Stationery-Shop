@@ -3,20 +3,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.productModal = void 0;
 const mongoose_1 = require("mongoose");
 const productSchema = new mongoose_1.Schema({
-    name: { type: String, required: true, unique: true, message: ' {VALUE} is not supported for already exist' },
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+        message: ' {VALUE} is not supported for already exist',
+    },
     brand: { type: String, required: true },
     price: { type: Number, required: true },
     category: {
         type: String,
         enum: {
             values: [
-                "Writing",
-                "Office Supplies",
-                "Art Supplies",
-                "Educational",
-                "Technology",
+                'Writing',
+                'Office Supplies',
+                'Art Supplies',
+                'Educational',
+                'Technology',
             ],
-            message: "{VALUE} is not supported",
+            message: '{VALUE} is not supported',
         },
         required: true,
     },
@@ -35,4 +40,4 @@ productSchema.pre('findOne', function (next) {
     this.find({ isDeleted: { $ne: true } });
     next();
 });
-exports.productModal = (0, mongoose_1.model)("Product", productSchema);
+exports.productModal = (0, mongoose_1.model)('Product', productSchema);

@@ -19,14 +19,14 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         if (validOrder.success) {
             const result = yield order_services_1.OrderServices.createOrderDB(order);
             res.status(200).json({
-                message: "Order create Successfully",
+                message: 'Order create Successfully',
                 success: true,
                 data: result,
             });
         }
         else {
             res.status(500).json({
-                message: "Validation failed",
+                message: 'Validation failed',
                 success: false,
                 data: validOrder.error,
             });
@@ -34,7 +34,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         res.status(500).json({
-            message: "Failed to create order",
+            message: 'Failed to create order',
             success: false,
             error,
         });
@@ -44,14 +44,14 @@ const getOrderRevenue = (req, res) => __awaiter(void 0, void 0, void 0, function
     try {
         const result = yield order_services_1.OrderServices.getOrderRevenueDB();
         res.status(200).json({
-            message: "Get Total revenue",
+            message: 'Get Total revenue',
             success: true,
             data: result,
         });
     }
     catch (error) {
         res.status(500).json({
-            message: "Failed to get revenue",
+            message: 'Failed to get revenue',
             success: false,
             error,
         });
@@ -59,5 +59,5 @@ const getOrderRevenue = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 exports.OrderController = {
     createOrder,
-    getOrderRevenue
+    getOrderRevenue,
 };

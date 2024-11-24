@@ -28,7 +28,7 @@ const deleteSingleProductDB = (id) => __awaiter(void 0, void 0, void 0, function
     return result;
 });
 const updateSingleProductDB = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_model_1.productModal.updateOne({ _id: id }, { data });
+    const result = yield product_model_1.productModal.updateOne({ _id: id }, { $set: data });
     return result;
 });
 exports.productServices = {
@@ -36,5 +36,5 @@ exports.productServices = {
     getProductDB,
     getSingleProductDB,
     deleteSingleProductDB,
-    updateSingleProductDB
+    updateSingleProductDB,
 };
