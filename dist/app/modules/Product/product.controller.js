@@ -54,7 +54,7 @@ const getProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({
             message: 'Failed to get all Data',
             success: false,
-            error,
+            stack: error instanceof Error && error.stack,
         });
     }
 });
@@ -72,7 +72,7 @@ const getSingleProduct = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(500).json({
             message: 'Failed to get all Data',
             success: false,
-            error,
+            stack: error instanceof Error && error.stack,
         });
     }
 });
@@ -90,7 +90,7 @@ const deleteSingleProduct = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.status(500).json({
             message: 'Failed to get all Data',
             success: false,
-            error,
+            stack: error instanceof Error && error.stack,
         });
     }
 });
@@ -109,7 +109,7 @@ const updateSingleProduct = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.status(500).json({
             message: 'Failed to update product data',
             success: false,
-            error,
+            stack: error instanceof Error && error.stack,
         });
     }
 });

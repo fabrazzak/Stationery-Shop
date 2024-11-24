@@ -44,7 +44,7 @@ const getProduct = async (req: Request, res: Response) => {
     res.status(500).json({
       message: 'Failed to get all Data',
       success: false,
-      error,
+      stack : error instanceof Error && error.stack ,
     });
   }
 };
@@ -62,7 +62,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
     res.status(500).json({
       message: 'Failed to get all Data',
       success: false,
-      error,      
+      stack : error instanceof Error && error.stack ,
     });
   }
 };
@@ -80,7 +80,7 @@ const deleteSingleProduct = async (req: Request, res: Response) => {
     res.status(500).json({
       message: 'Failed to get all Data',
       success: false,
-      error,
+      stack : error instanceof Error && error.stack ,
     });
   }
 };
@@ -99,7 +99,7 @@ const updateSingleProduct = async (req: Request, res: Response) => {
     res.status(500).json({
       message: 'Failed to update product data',
       success: false,
-      error,
+      stack : error instanceof Error && error.stack ,
     });
   }
 };
