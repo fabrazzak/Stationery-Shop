@@ -6,7 +6,7 @@ const createOrderDB = async (order: Order) => {
   return result;
 };
 const getOrderRevenueDB = async () => {
-  // const result= await OrderModel.find();
+
 
   const result = await OrderModel.aggregate([
     {
