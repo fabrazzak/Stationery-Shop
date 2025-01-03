@@ -4,23 +4,18 @@ import { orderValidation } from './order.validation';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
-    const { order } = req.body;
-    const validOrder = orderValidation.safeParse(order);
+    const  order  = req.body;
+    const validOrder = orderValidation.parse(order);
 
-    if (validOrder.success) {
+    if (validOrder) {
       const result = await OrderServices.createOrderDB(order);
       res.status(200).json({
         message: 'Order create Successfully',
         success: true,
         data: result,
       });
-    } else {
-      res.status(500).json({
-        message: 'Validation failed',
-        success: false,
-        data: validOrder.error,
-      });
     }
+
   } catch (error) {
     res.status(500).json({
       message: 'Failed to create order',
@@ -34,13 +29,13 @@ const getOrderRevenue = async (req: Request, res: Response) => {
   try {
     const result = await OrderServices.getOrderRevenueDB();
     res.status(200).json({
-      message: 'Get Total revenue',
+      message: 'Revenue calculated successfully',
       success: true,
       data: result,
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Failed to get revenue',
+      message: 'Failed to  calculated  revenue  ',
       success: false,
       error,
     });

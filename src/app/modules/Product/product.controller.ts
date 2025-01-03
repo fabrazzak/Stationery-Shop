@@ -1,27 +1,20 @@
 import { Request, Response } from 'express';
 import { productServices } from './product.service';
-import { productValidation } from './product.validation';
+import {  createProductSchema } from './product.validation';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const { product } = req.body;
-    const validProduct = productValidation.safeParse(product);
-
-    if (validProduct.success) {
-      const result = await productServices.createProductDB(validProduct.data);
-
+    const  product  = req.body;
+    console.log(product)
+    const validProduct = createProductSchema.parse(product);
+   
+      const result = await productServices.createProductDB(validProduct);
       res.status(200).json({
         message: 'Product created successfully',
         success: true,
         data: result,
       });
-    } else {
-      res.status(500).json({
-        message: 'Validation failed',
-        success: false,
-        data: validProduct.error,
-      });
-    }
+
   } catch (error) {
     res.status(500).json({
       message: 'Failed to get all Data',
@@ -32,17 +25,23 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
+
+
+
+
+
+
 const getProduct = async (req: Request, res: Response) => {
   try {
     const result = await productServices.getProductDB();
     res.status(200).json({
-      message: 'Get all Products  successfully',
+      message: 'Products retrieved successfully',
       success: true,
       data: result,
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Failed to get all Data',
+      message: 'Failed to retrieve products',
       success: false,
       stack : error instanceof Error && error.stack ,
     });
@@ -54,13 +53,13 @@ const getSingleProduct = async (req: Request, res: Response) => {
     const { productId } = req.params;
     const result = await productServices.getSingleProductDB(productId);
     res.status(200).json({
-      message: 'Get Single product successfully',
+      message: 'Product retrieved successfully',
       success: true,
       data: result,
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Failed to get all Data',
+      message: 'Failed to retrieved single product',
       success: false,
       stack : error instanceof Error && error.stack ,
     });
@@ -88,10 +87,10 @@ const deleteSingleProduct = async (req: Request, res: Response) => {
 const updateSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
-    const { productInfo } = req.body;    
+    const  productInfo  = req.body; 
     const result = await productServices.updateSingleProductDB(productId,productInfo);
     res.status(200).json({
-      message: 'update  Single product successfully',
+      message: 'Product updated successfully',
       success: true,
       data: result,
     });

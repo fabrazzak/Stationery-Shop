@@ -14,6 +14,11 @@ const getOrderRevenueDB = async () => {
         _id: null,
         totalRevenue: { $sum: { $multiply: ['$quantity', '$totalPrice'] } },
       },
+    }, {
+      $project: {
+        _id: 0, 
+        totalRevenue: 1, 
+      },
     },
   ]);
 

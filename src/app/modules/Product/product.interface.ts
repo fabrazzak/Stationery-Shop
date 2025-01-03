@@ -10,6 +10,5 @@ export type Product = {
     | 'Technology';
   description: string;
   quantity: number;
-  inStock: boolean;
-  isDeleted: boolean;
+  inStock: boolean; 
 };

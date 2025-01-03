@@ -17,14 +17,14 @@ const getSingleProductDB = async (productId: string) => {
 };
 
 const deleteSingleProductDB = async (id: string) => {
-  const result = await productModal.updateOne({ _id: id }, { isDeleted: true });
+  const result = await productModal.deleteOne({ _id: id }, { isDeleted: true });
   return result;
 };
 
 const updateSingleProductDB = async (id: string, data:object) => {
   
-  const result = await productModal.updateOne({ _id:id }, {$set: data });
- 
+  const result = await productModal.findOneAndUpdate({ _id:id }, {$set: data });
+
   return result;
 };
 

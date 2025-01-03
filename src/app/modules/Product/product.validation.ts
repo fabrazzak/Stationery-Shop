@@ -1,22 +1,22 @@
 import { z } from 'zod';
 
-// Zod schema for product validation
-export const productValidation = z.object({
-  name: z.string().nonempty('Name is required'), // Validates 'name' as a non-empty string
-  brand: z.string().nonempty('Brand is required'), // Validates 'brand' as a non-empty string
-  price: z.number().positive('Price must be greater than 0'), // Ensures 'price' is a positive number
+// Zod schema for Product validation
+export const productSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  brand: z.string().min(1, { message: "Brand is required" }),
+  price: z.number().min(0, { message: "Price must be a positive number" }),
   category: z.enum([
     'Writing',
     'Office Supplies',
     'Art Supplies',
     'Educational',
     'Technology',
-  ]), // Restricts 'category' to specific values
-  description: z.string().nonempty('Description is required'), // 'description' is required as a non-empty string
-  quantity: z
-    .number()
-    .int()
-    .nonnegative('Quantity must be a non-negative integer'), // Ensures 'quantity' is a non-negative integer
-  inStock: z.boolean(), // 'inStock' is required as a boolean
-  isDeleted: z.boolean(), // 'inStock' is required as a boolean
+  ], { message: "Category must be one of the allowed values" }),
+  description: z.string().min(1, { message: "Description is required" }),
+  quantity: z.number().min(0, { message: "Quantity must be a positive number" }),
+  inStock: z.boolean({ required_error: "InStock is required" }),
 });
+
+export const createProductSchema = productSchema;
+
+export const updateProductSchema = productSchema.partial(); 
